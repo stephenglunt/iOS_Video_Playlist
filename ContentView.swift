@@ -8,31 +8,36 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    private var morningPlaylist: vidList = vidList(title: "Morning List", videos: [
-        video.init(vId: "OykDjqQqudY", starTime: 45, endTime: 472),
-        video.init(vId: "jj2AAH6jbHk", starTime: 33, endTime: 840)
+    private var user: appUser = appUser(listCollection: [
+        vidList(title: "Morning List", videos: [
+            video.init(vId: "OykDjqQqudY", starTime: 45, endTime: 472),
+            video.init(vId: "jj2AAH6jbHk", starTime: 33, endTime: 840)
+        ]),
+        vidList(title: "Stretches", videos: [
+            video.init(vId: "Pjf9sYIpTW4", starTime: 58, endTime: 358),
+            video.init(vId: "cacwri2wio4", starTime: 10, endTime: 387),
+            video.init(vId: "whf9pRHbH0o", starTime: 12, endTime: 323),
+            video.init(vId: "NVzs5gy11wQ", starTime: 144, endTime: 492),
+            video.init(vId: "NVzs5gy11wQ", starTime: 144, endTime: 492)
+        ]),
+        vidList(title: "Yoga", videos: [
+            video.init(vId: "ZSSC9X_6wo4", starTime: 110, endTime: 1459),
+            video.init(vId: "6F0l9lVnKdQ", starTime: 55, endTime: 1214),
+            video.init(vId: "mjf7Fkmuxhc", starTime: 73, endTime: 770)
+        ]),
+        vidList(title: "Chest", videos: [
+            video.init(vId: "qwx1VV9vV1A", starTime: 25, endTime: 805),
+            video.init(vId: "z69-sHjnPd0", starTime: 126, endTime: 650),
+            video.init(vId: "JLRxJDe8UMY", starTime: 32, endTime: 332),
+            video.init(vId: "rxEMKXW2Wqs", starTime: 105, endTime: 690)
+        ]),
+        vidList(title: "Back", videos: [
+            video.init(vId: "imRJUblCTjw", starTime: 35, endTime: 908)
+        ])
+        
     ])
     
-    private var shortStretches: vidList = vidList(title: "Stretches", videos: [
-        video.init(vId: "Pjf9sYIpTW4", starTime: 58, endTime: 358),
-        video.init(vId: "cacwri2wio4", starTime: 10, endTime: 387),
-        video.init(vId: "whf9pRHbH0o", starTime: 12, endTime: 323),
-        video.init(vId: "NVzs5gy11wQ", starTime: 144, endTime: 492),
-        video.init(vId: "NVzs5gy11wQ", starTime: 144, endTime: 492)
-    ])
     
-    private var eveningYoga: vidList = vidList(title: "Yoga", videos: [
-        video.init(vId: "ZSSC9X_6wo4", starTime: 110, endTime: 1459),
-        video.init(vId: "6F0l9lVnKdQ", starTime: 55, endTime: 1214)
-    ])
-    
-    private var chest: vidList = vidList(title: "Chest", videos: [
-        video.init(vId: "qwx1VV9vV1A", starTime: 25, endTime: 805),
-        video.init(vId: "z69-sHjnPd0", starTime: 126, endTime: 650),
-        video.init(vId: "JLRxJDe8UMY", starTime: 32, endTime: 332),
-        video.init(vId: "rxEMKXW2Wqs", starTime: 105, endTime: 690)
-    ])
     
     
     var body: some View {
@@ -41,26 +46,13 @@ struct ContentView: View {
                 ChangingGradient()
 
                 VStack {
-                    NavigationLink(destination: PlayView(playList: morningPlaylist)) {
-                        Text(morningPlaylist.title)
-                            .buttonStyle()
+                    ForEach(user.getLists(), id: \.self) { list in
+                        NavigationLink(destination: PlayView(playList: list)) {
+                            Text(list.title)
+                                .buttonStyle()
+                        }
+                        .padding()
                     }
-                    .padding()
-                    NavigationLink(destination: PlayView(playList: shortStretches)) {
-                        Text(shortStretches.title)
-                            .buttonStyle()
-                    }
-                    .padding()
-                    NavigationLink(destination: PlayView(playList: chest)) {
-                        Text(chest.title)
-                            .buttonStyle()
-                    }
-                    .padding()
-                    NavigationLink(destination: PlayView(playList: eveningYoga)) {
-                        Text(eveningYoga.title)
-                            .buttonStyle()
-                    }
-                    .padding()
                 }
             }
         }
